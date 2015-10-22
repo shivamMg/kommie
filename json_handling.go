@@ -20,9 +20,9 @@ type JsonData struct {
 	Categories []Category
 }
 
-func ReadJsonData(filename string) *JsonData {
+func ReadJsonData() *JsonData {
 	data := JsonData{}
-	content, err := ioutil.ReadFile(filename)
+	content, err := ioutil.ReadFile(JsonFileName)
 	if err == nil {
 		// If file exists
 		err = json.Unmarshal(content, &data)
@@ -33,9 +33,8 @@ func ReadJsonData(filename string) *JsonData {
 	return &data
 }
 
-func ModifyData(input UserInput, data *JsonData) {
-	i := 0
-	for _, category := range data.Categories {
+func ModifyJsonData(input UserInput, data *JsonData) {
+	for i, category := range data.Categories {
 		if input.Category == category.Name {
 			// Category already exists
 			command := Command{
@@ -46,7 +45,6 @@ func ModifyData(input UserInput, data *JsonData) {
 			fmt.Println(data)
 			return
 		}
-		i = i + 1
 	}
 	// Category does not exist
 	category := Category{
@@ -61,9 +59,9 @@ func ModifyData(input UserInput, data *JsonData) {
 	data.Categories = append(data.Categories, category)
 }
 
-func WriteJsonData(filename string, data JsonData) {
+func WriteJsonData(data JsonData) {
 	content, err := json.Marshal(data)
-	err = ioutil.WriteFile(filename, content, 0666)
+	err = ioutil.WriteFile(JsonFileName, content, 0666)
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
