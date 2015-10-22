@@ -20,7 +20,7 @@ type JsonData struct {
 	Categories []Category
 }
 
-func ReadJsonData() *JsonData {
+func ReadJsonData() JsonData {
 	data := JsonData{}
 	content, err := ioutil.ReadFile(JsonFileName)
 	if err == nil {
@@ -30,7 +30,7 @@ func ReadJsonData() *JsonData {
 			fmt.Println("Error:", err)
 		}
 	}
-	return &data
+	return data
 }
 
 func ModifyJsonData(input UserInput, data *JsonData) {

@@ -80,5 +80,7 @@ func DisplayCategories(jsonData JsonData) {
 		}
 		i++
 	}
-	fmt.Println()
+	if i < n*n {
+		fmt.Println()
+	}
 }
