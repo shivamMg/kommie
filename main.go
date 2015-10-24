@@ -6,32 +6,37 @@ import (
 )
 
 func main() {
+	// Arguments
 	args := os.Args[1:]
-	argc := len(args)
-	jsonData := ReadJsonData()
-
 	// Argument count
+	argc := len(args)
+
+	jd := readJSONData()
+
+	const argShow = "show"
+	const argDelete = "delete"
+
 	switch argc {
 	case 0:
-		emptyInput := InputData{}
-		input := UserInput(jsonData)
-		if input != emptyInput {
-			AddCommand(input, &jsonData)
-			WriteJsonData(jsonData)
+		emptyInput := inputData{}
+		in := userInput(jd)
+		if in != emptyInput {
+			addCommand(in, &jd)
+			writeJSONData(jd)
 		}
 	case 1:
-		if args[0] == "show" {
-			DisplayCategories(jsonData)
-		} else if args[0] == "delete" {
-			DisplayCategories(jsonData)
+		if args[0] == argShow {
+			displayCategories(jd)
+		} else if args[0] == argDelete {
+			displayCategories(jd)
 			fmt.Println("Enter category name as second argument")
 		}
 	case 2:
-		if args[0] == "show" {
-			DisplayCommands(args[1], jsonData)
-		} else if args[0] == "delete" {
-			DeleteCommand(args[1], &jsonData)
-			WriteJsonData(jsonData)
+		if args[0] == argShow {
+			displayCommands(args[1], jd)
+		} else if args[0] == argDelete {
+			deleteCommand(args[1], &jd)
+			writeJSONData(jd)
 		}
 	}
 }

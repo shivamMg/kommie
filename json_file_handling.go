@@ -6,38 +6,43 @@ import (
 	"io/ioutil"
 )
 
-var JsonFileName = "./data.json"
+var jsonFileName = "./data.json"
 
-type Command struct {
-	Name        string
-	Description string
+type command struct {
+	Name        string `json:"name"`
+	Description string `json:"use"`
 }
 
-type Category struct {
-	Name     string
-	Commands []Command
+type category struct {
+	Name     string    `json:"name"`
+	Commands []command `json:"commands"`
 }
 
-type JsonData struct {
-	Categories []Category
+type jsonData struct {
+	Categories []category `json:"category"`
 }
 
-func ReadJsonData() JsonData {
-	jsonData := JsonData{}
-	content, err := ioutil.ReadFile(JsonFileName)
+func readJSONData() jsonData {
+	jd := jsonData{}
+
+	content, err := ioutil.ReadFile(jsonFileName)
 	// If file already exists
 	if err == nil {
-		err = json.Unmarshal(content, &jsonData)
+		err = json.Unmarshal(content, &jd)
 		if err != nil {
 			fmt.Println("Error:", err)
 		}
 	}
-	return jsonData
+	return jd
 }
 
-func WriteJsonData(jsonData JsonData) {
-	content, err := json.Marshal(jsonData)
-	err = ioutil.WriteFile(JsonFileName, content, 0666)
+func writeJSONData(jd jsonData) {
+	content, err := json.Marshal(jd)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	err = ioutil.WriteFile(jsonFileName, content, 0666)
 	if err != nil {
 		fmt.Println("Error:", err)
 	}

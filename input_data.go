@@ -7,39 +7,39 @@ import (
 	"strings"
 )
 
-type InputData struct {
-	Command     string
-	Category    string
-	Description string
+type inputData struct {
+	command     string
+	category    string
+	description string
 }
 
-func UserInput(jsonData JsonData) InputData {
-	input := InputData{}
+func userInput(jd jsonData) inputData {
+	in := inputData{}
 	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Print("Command           : ")
-	command, _ := reader.ReadString('\n')
-	command = strings.TrimRight(command, " \n")
-	if command == "" {
+	com, _ := reader.ReadString('\n')
+	com = strings.TrimRight(com, " \n")
+	if com == "" {
 		fmt.Println("No command specified")
-		return input
+		return in
 	}
 
-	DisplayCategories(jsonData)
+	displayCategories(jd)
 	fmt.Print("Category          : ")
-	category, _ := reader.ReadString('\n')
-	category = strings.TrimRight(category, " \n")
-	if category == "" {
+	cat, _ := reader.ReadString('\n')
+	cat = strings.TrimRight(cat, " \n")
+	if cat == "" {
 		fmt.Println("No category specified")
-		return input
+		return in
 	}
 
 	fmt.Print("Description (opt) : ")
-	description, _ := reader.ReadString('\n')
-	description = strings.TrimRight(description, " \n")
+	des, _ := reader.ReadString('\n')
+	des = strings.TrimRight(des, " \n")
 
-	input.Command = command
-	input.Category = category
-	input.Description = description
-	return input
+	in.command = com
+	in.category = cat
+	in.description = des
+	return in
 }
