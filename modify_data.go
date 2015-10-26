@@ -53,7 +53,10 @@ func deleteCommand(argCategory string, jd *jsonData) {
 	// Display all commands in nth category
 	// Display serial-wise
 	for i, com := range (*cats)[n].Commands {
-		fmt.Printf("%d  %s\n", i+1, com.Name)
+		fmt.Printf("%d ", i+1)
+		setColor()
+		fmt.Println(com.Name)
+		resetColor()
 	}
 	// Input serial number
 	fmt.Print("Enter Serial Number: ")
@@ -73,4 +76,46 @@ func deleteCommand(argCategory string, jd *jsonData) {
 	} else {
 		fmt.Println("Invalid Serial Number")
 	}
+}
+
+func deleteCategory(argCategory string, jd *jsonData) {
+	cats := &jd.Categories
+
+	// Check if argCategory exists
+	// Get index
+	n := -1
+	for i, c := range *cats {
+		if argCategory == c.Name {
+			n = i
+			break
+		}
+	}
+
+	if n == -1 {
+		fmt.Printf("No category named '%s'\n", argCategory)
+		return
+	}
+
+	// Total commands inside category
+	l := len((*cats)[n].Commands)
+	if l != 0 {
+		fmt.Printf("'%s' contains %d commands\n", (*cats)[n].Name, l)
+	}
+
+	ch := "N"
+	fmt.Printf("Are you sure, you want to delete '%s'? (y/N): ", (*cats)[n].Name)
+	_, err := fmt.Scanf("%s", &ch)
+	if err != nil || (ch != "y" && ch != "Y") {
+		return
+	}
+
+	// Total categories
+	l = len(*cats)
+	if l == 0 {
+		return
+	}
+	// Swap with last category
+	(*cats)[n] = (*cats)[l-1]
+	// Slice off last category
+	*cats = (*cats)[:l-1]
 }
