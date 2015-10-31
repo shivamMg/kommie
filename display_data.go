@@ -4,32 +4,22 @@ import (
 	"fmt"
 )
 
-func setColor() {
-	// Yellow text color
+func setBoldColor() {
+	// Yellow-Bold text
 	fmt.Print("\x1b[33;1m")
 }
 
+func setColor() {
+	// Yellow text
+	fmt.Print("\x1b[33m")
+}
+
 func resetColor() {
-	// Default text color
+	// Default text
 	fmt.Print("\x1b[0m")
 }
 
-func displayCommands(argCategory string, jd jsonData) {
-	// Search categories for argCategory
-	n := -1
-	for i, c := range jd.Categories {
-		if argCategory == c.Name {
-			// Get index
-			n = i
-			break
-		}
-	}
-
-	if n == -1 {
-		fmt.Printf("No category named '%s'\n", argCategory)
-		return
-	}
-
+func displayCommands(n int, jd jsonData) {
 	// List of all commands
 	coms := jd.Categories[n].Commands
 	// Length of command with max length
@@ -81,7 +71,7 @@ func displayCategories(jd jsonData) {
 	}
 
 	// Display categories
-	setColor()
+	setBoldColor()
 	for i, c := range cats {
 		fmt.Print(c)
 		for j := 0; j <= maxCatLen-len(c); j++ {
