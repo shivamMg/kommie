@@ -44,6 +44,18 @@ func readInput() string {
 	return input
 }
 
+func readSerialNo(l int) int {
+	fmt.Print("Enter Serial Number: ")
+	sno := 0
+	_, err := fmt.Scanf("%d", &sno)
+	// if sno is not integer and is not in range (0, l]
+	if err != nil || !(sno > 0 && sno <= l) {
+		fmt.Println("Invalid Serial Number")
+		return -1
+	}
+	return sno
+}
+
 // Check if arg is a predefined command
 func isKommieCom(arg string) bool {
 	if arg == argAddCom || arg == argDelCom || arg == argModCom || arg == argDelCat || arg == argModCat || arg == argExport {

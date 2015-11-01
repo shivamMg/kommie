@@ -19,7 +19,7 @@ func resetColor() {
 	fmt.Print("\x1b[0m")
 }
 
-func displayCommands(n int, jd jsonData) {
+func displayCommands(n int, serialize bool, jd jsonData) {
 	// List of all commands
 	coms := jd.Categories[n].Commands
 	// Length of command with max length
@@ -33,14 +33,17 @@ func displayCommands(n int, jd jsonData) {
 	}
 
 	// Display commands
-	for _, c := range coms {
+	for i, c := range coms {
+		if serialize {
+			fmt.Printf("%d   ", i+1)
+		}
 		setColor()
 		fmt.Print(c.Name)
 		resetColor()
-		for i := 0; i <= maxComLen-len(c.Name); i++ {
+		for j := 0; j < maxComLen-len(c.Name); j++ {
 			fmt.Print(" ")
 		}
-		fmt.Println(c.Description)
+		fmt.Printf("   %s\n", c.Description)
 	}
 }
 
@@ -77,17 +80,13 @@ func displayCategories(jd jsonData) {
 		for j := 0; j <= maxCatLen-len(c); j++ {
 			fmt.Print(" ")
 		}
-		if i == len(cats)-1 {
-			break
-		}
 		if (i+1)%n == 0 {
 			fmt.Println()
 		}
 	}
 	resetColor()
 
-	// If number of categories less than size of matrix
-	if len(cats) < n*n {
+	if len(cats)%n != 0 {
 		fmt.Println()
 	}
 }

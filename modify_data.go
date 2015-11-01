@@ -7,35 +7,27 @@ import (
 func modifyCommand(n int, jd *jsonData) {
 	cats := &jd.Categories
 
-	// Display all commands in nth category
-	// Display serial-wise
-	for i, com := range (*cats)[n].Commands {
-		fmt.Printf("%d ", i+1)
-		setColor()
-		fmt.Println(com.Name)
-		resetColor()
-	}
-
-	// Total commands in nth category
+	// Total commands inside category
 	l := len((*cats)[n].Commands)
-
-	// Input serial number
-	fmt.Print("Enter Serial Number: ")
-	sno := 0
-	_, err := fmt.Scanf("%d", &sno)
-	// Check if sno is an integer and is in range (0, l]
-	if err != nil || !(sno > 0 && sno <= l) {
-		fmt.Println("Invalid Serial Number")
+	if l == 0 {
+		fmt.Printf("No commands in '%s'\n", (*cats)[n].Name)
 		return
 	}
 
-	fmt.Print("Command          : ")
+	displayCommands(n, true, *jd)
+
+	sno := readSerialNo(l)
+	if sno == -1 {
+		return
+	}
+
+	fmt.Print("New command name : ")
 	com := readInput()
 	if com == "" {
 		fmt.Println("No command specified")
 		return
 	}
-	fmt.Print("Description      : ")
+	fmt.Print("New description  : ")
 	des := readInput()
 
 	(*cats)[n].Commands[sno-1].Name = com
@@ -45,7 +37,7 @@ func modifyCommand(n int, jd *jsonData) {
 func modifyCategory(n int, jd *jsonData) {
 	cats := &jd.Categories
 
-	fmt.Print("Category          : ")
+	fmt.Print("New category name : ")
 	cat := readInput()
 	if cat == "" {
 		fmt.Println("No category specified")

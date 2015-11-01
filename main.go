@@ -29,15 +29,20 @@ func main() {
 		displayCategories(jd)
 	case 1:
 		n := checkCategory(args[0], jd)
-		// if arg[0] is a category
+		// If args[0] is category
 		if n != -1 {
-			displayCommands(n, jd)
-			break
+			displayCommands(n, false, jd)
+			return
 		}
-		// if arg[0] is argExport
+		// If args[0] is argExport
 		if args[0] == argExport {
 			exportJSONData(jd)
-			break
+			return
+		}
+		// If args[0] is not a predefined command
+		if !isKommieCom(args[0]) {
+			fmt.Println("Invalid argument")
+			return
 		}
 
 		displayCategories(jd)
@@ -45,7 +50,7 @@ func main() {
 		cat := readInput()
 		if cat == "" {
 			fmt.Println("No category specified")
-			break
+			return
 		}
 
 		argMatch(cat, args[0], jd)
