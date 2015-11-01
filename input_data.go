@@ -15,22 +15,21 @@ type inputData struct {
 
 func userInput(cat string, jd jsonData) inputData {
 	in := inputData{}
-	reader := bufio.NewReader(os.Stdin)
 
-	if cat == "add" || cat == "del" || cat == "mod" || cat == "delcat" || cat == "modcat" {
+	if isKommieCom(cat) {
 		fmt.Printf("Cannot use '%s' as category\n", cat)
 		return in
 	}
 
 	fmt.Print("Command           : ")
-	com := readInput(reader)
+	com := readInput()
 	if com == "" {
 		fmt.Println("No command specified")
 		return in
 	}
 
 	fmt.Print("Description (opt) : ")
-	des := readInput(reader)
+	des := readInput()
 
 	in.command = com
 	in.category = cat
@@ -38,8 +37,17 @@ func userInput(cat string, jd jsonData) inputData {
 	return in
 }
 
-func readInput(r *bufio.Reader) string {
-	input, _ := r.ReadString('\n')
+func readInput() string {
+	reader := bufio.NewReader(os.Stdin)
+	input, _ := reader.ReadString('\n')
 	input = strings.TrimRight(input, " \n")
 	return input
+}
+
+// Check if arg is a predefined command
+func isKommieCom(arg string) bool {
+	if arg == argAddCom || arg == argDelCom || arg == argModCom || arg == argDelCat || arg == argModCat {
+		return true
+	}
+	return false
 }

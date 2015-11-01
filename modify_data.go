@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 )
 
 func modifyCommand(n int, jd *jsonData) {
@@ -31,13 +29,14 @@ func modifyCommand(n int, jd *jsonData) {
 		return
 	}
 
-	reader := bufio.NewReader(os.Stdin)
-	com := readInput(reader)
+	fmt.Print("Command          : ")
+	com := readInput()
 	if com == "" {
 		fmt.Println("No command specified")
 		return
 	}
-	des := readInput(reader)
+	fmt.Print("Description      : ")
+	des := readInput()
 
 	(*cats)[n].Commands[sno-1].Name = com
 	(*cats)[n].Commands[sno-1].Description = des
@@ -46,8 +45,8 @@ func modifyCommand(n int, jd *jsonData) {
 func modifyCategory(n int, jd *jsonData) {
 	cats := &jd.Categories
 
-	reader := bufio.NewReader(os.Stdin)
-	cat := readInput(reader)
+	fmt.Print("Category          : ")
+	cat := readInput()
 	if cat == "" {
 		fmt.Println("No category specified")
 		return

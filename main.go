@@ -1,9 +1,17 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
+)
+
+const (
+	argAddCom = "add"
+	argDelCom = "del"
+	argModCom = "mod"
+
+	argDelCat = "delcat"
+	argModCat = "modcat"
 )
 
 func main() {
@@ -11,15 +19,6 @@ func main() {
 	args := os.Args[1:]
 	// Argument count
 	argc := len(args)
-
-	const (
-		argAddCommand    = "add"
-		argDeleteCommand = "del"
-		argModifyCommand = "mod"
-
-		argDeleteCategory = "delcat"
-		argModifyCategory = "modcat"
-	)
 
 	jd := readJSONData()
 
@@ -36,69 +35,50 @@ func main() {
 
 		displayCategories(jd)
 		fmt.Print("Category          : ")
-		reader := bufio.NewReader(os.Stdin)
-		cat := readInput(reader)
+		cat := readInput()
 		if cat == "" {
 			fmt.Println("No category specified")
 			break
 		}
 
-		if args[0] == argAddCommand {
-			emptyInput := inputData{}
-			in := userInput(cat, jd)
-			if in != emptyInput {
-				addCommand(in, &jd)
-				writeJSONData(jd)
-			}
-			break
-		}
-
-		n = checkCategory(cat, jd)
-		if n == -1 {
-			fmt.Printf("No category named '%s'\n", cat)
-			break
-		}
-
-		if args[0] == argDeleteCommand {
-			deleteCommand(n, &jd)
-			writeJSONData(jd)
-		} else if args[0] == argDeleteCategory {
-			deleteCategory(n, &jd)
-			writeJSONData(jd)
-		} else if args[0] == argModifyCommand {
-			modifyCommand(n, &jd)
-			writeJSONData(jd)
-		} else if args[0] == argModifyCategory {
-			modifyCategory(n, &jd)
-			writeJSONData(jd)
-		}
+		argMatch(cat, args[0], jd)
 	case 2:
-		n := checkCategory(args[0], jd)
-		if n == -1 {
-			fmt.Printf("No category named '%s'\n", args[0])
-			break
-		}
+		argMatch(args[0], args[1], jd)
+	default:
+		fmt.Println("Too many arguments")
+	}
+}
 
-		if args[1] == argAddCommand {
-			emptyInput := inputData{}
-			in := userInput(args[0], jd)
-			if in != emptyInput {
-				addCommand(in, &jd)
-				writeJSONData(jd)
-			}
-		} else if args[1] == argDeleteCommand {
-			deleteCommand(n, &jd)
-			writeJSONData(jd)
-		} else if args[1] == argDeleteCategory {
-			deleteCategory(n, &jd)
-			writeJSONData(jd)
-		} else if args[1] == argModifyCommand {
-			modifyCommand(n, &jd)
-			writeJSONData(jd)
-		} else if args[1] == argModifyCategory {
-			modifyCategory(n, &jd)
+func argMatch(cat string, arg string, jd jsonData) {
+	if arg == argAddCom {
+		emptyInput := inputData{}
+		in := userInput(cat, jd)
+		if in != emptyInput {
+			addCommand(in, &jd)
 			writeJSONData(jd)
 		}
+		return
+	}
+
+	n := checkCategory(cat, jd)
+	if n == -1 {
+		fmt.Printf("No category named '%s'\n", cat)
+		return
+	}
+
+	switch arg {
+	case argDelCom:
+		deleteCommand(n, &jd)
+		writeJSONData(jd)
+	case argModCom:
+		modifyCommand(n, &jd)
+		writeJSONData(jd)
+	case argDelCat:
+		deleteCategory(n, &jd)
+		writeJSONData(jd)
+	case argModCat:
+		modifyCategory(n, &jd)
+		writeJSONData(jd)
 	}
 }
 
