@@ -47,3 +47,11 @@ func writeJSONData(jd jsonData) {
 		fmt.Println("Error:", err)
 	}
 }
+
+func exportJSONData(jd jsonData) {
+	content, err := json.MarshalIndent(jd, "", "\t")
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
+	fmt.Println(string(content))
+}

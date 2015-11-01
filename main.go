@@ -12,6 +12,8 @@ const (
 
 	argDelCat = "delcat"
 	argModCat = "modcat"
+
+	argExport = "export"
 )
 
 func main() {
@@ -30,6 +32,11 @@ func main() {
 		// if arg[0] is a category
 		if n != -1 {
 			displayCommands(n, jd)
+			break
+		}
+		// if arg[0] is argExport
+		if args[0] == argExport {
+			exportJSONData(jd)
 			break
 		}
 

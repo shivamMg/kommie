@@ -46,7 +46,7 @@ func readInput() string {
 
 // Check if arg is a predefined command
 func isKommieCom(arg string) bool {
-	if arg == argAddCom || arg == argDelCom || arg == argModCom || arg == argDelCat || arg == argModCat {
+	if arg == argAddCom || arg == argDelCom || arg == argModCom || arg == argDelCat || arg == argModCat || arg == argExport {
 		return true
 	}
 	return false
