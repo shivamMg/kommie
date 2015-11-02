@@ -41,6 +41,9 @@ func deleteCategory(n int, jd *jsonData) {
 		return
 	}
 
+	// Total categories
+	l = len(*cats)
+
 	// Swap with last category
 	(*cats)[n] = (*cats)[l-1]
 	// Slice off last category

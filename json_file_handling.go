@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 )
 
-var jsonFileName = "./data.json"
+var jsonFileName = "/.data.json"
+var jsonFilePath = "/home/" + os.Getenv("USER") + jsonFileName
 
 type command struct {
 	Name        string `json:"name"`
@@ -25,7 +27,7 @@ type jsonData struct {
 func readJSONData() jsonData {
 	jd := jsonData{}
 
-	content, err := ioutil.ReadFile(jsonFileName)
+	content, err := ioutil.ReadFile(jsonFilePath)
 	// If file already exists
 	if err == nil {
 		err = json.Unmarshal(content, &jd)
@@ -42,7 +44,7 @@ func writeJSONData(jd jsonData) {
 		fmt.Println("Error:", err)
 	}
 
-	err = ioutil.WriteFile(jsonFileName, content, 0666)
+	err = ioutil.WriteFile(jsonFilePath, content, 0666)
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
