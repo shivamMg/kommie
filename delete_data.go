@@ -17,6 +17,7 @@ func deleteCommand(n int, jd *jsonData) {
 	displayCommands(n, true, *jd)
 	sno := readSerialNo(l)
 	if sno == -1 {
+		fmt.Println("Invalid Serial Number")
 		return
 	}
 
@@ -35,9 +36,10 @@ func deleteCategory(n int, jd *jsonData) {
 	fmt.Printf("'%s' contains %d command(s)\n", (*cats)[n].Name, l)
 
 	ch := "N"
-	fmt.Printf("You sure you want to delete '%s'? (y/N): ", (*cats)[n].Name)
+	fmt.Printf("You sure want to delete '%s'? (y/N): ", (*cats)[n].Name)
 	_, err := fmt.Scanf("%s", &ch)
 	if err != nil || (ch != "y" && ch != "Y") {
+		fmt.Printf("'%s' not deleted\n", (*cats)[n].Name)
 		return
 	}
 

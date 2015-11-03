@@ -50,7 +50,6 @@ func readSerialNo(l int) int {
 	_, err := fmt.Scanf("%d", &sno)
 	// if sno is not integer and is not in range (0, l]
 	if err != nil || !(sno > 0 && sno <= l) {
-		fmt.Println("Invalid Serial Number")
 		return -1
 	}
 	return sno

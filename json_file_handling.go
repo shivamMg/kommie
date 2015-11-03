@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var jsonFileName = "/.data.json"
+var jsonFileName = "/.kommie_data.json"
 var jsonFilePath = "/home/" + os.Getenv("USER") + jsonFileName
 
 type command struct {
@@ -28,12 +28,14 @@ func readJSONData() jsonData {
 	jd := jsonData{}
 
 	content, err := ioutil.ReadFile(jsonFilePath)
-	// If file already exists
-	if err == nil {
-		err = json.Unmarshal(content, &jd)
-		if err != nil {
-			fmt.Println("Error:", err)
-		}
+	if err != nil {
+		return jd
+	}
+
+	err = json.Unmarshal(content, &jd)
+	if err != nil {
+		fmt.Println("Error parsing json file: ", jsonFilePath)
+		panic(err)
 	}
 	return jd
 }
@@ -41,19 +43,20 @@ func readJSONData() jsonData {
 func writeJSONData(jd jsonData) {
 	content, err := json.Marshal(jd)
 	if err != nil {
-		fmt.Println("Error:", err)
+		panic(err)
 	}
 
 	err = ioutil.WriteFile(jsonFilePath, content, 0666)
 	if err != nil {
-		fmt.Println("Error:", err)
+		fmt.Println("Error writing to json file: ", jsonFilePath)
+		panic(err)
 	}
 }
 
 func exportJSONData(jd jsonData) {
 	content, err := json.MarshalIndent(jd, "", "\t")
 	if err != nil {
-		fmt.Println("Error: ", err)
+		panic(err)
 	}
 	fmt.Println(string(content))
 }

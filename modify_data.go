@@ -18,6 +18,7 @@ func modifyCommand(n int, jd *jsonData) {
 
 	sno := readSerialNo(l)
 	if sno == -1 {
+		fmt.Println("Invalid Serial Number")
 		return
 	}
 

@@ -39,11 +39,6 @@ func main() {
 			exportJSONData(jd)
 			return
 		}
-		// If args[0] is not a predefined command
-		if !isKommieCom(args[0]) {
-			fmt.Println("Invalid argument")
-			return
-		}
 
 		displayCategories(jd)
 		fmt.Print("Category          : ")
@@ -94,6 +89,7 @@ func argMatch(cat string, arg string, jd jsonData) {
 	}
 }
 
+// Returns -1 if category not found
 func checkCategory(category string, jd jsonData) int {
 	n := -1
 	for i, c := range jd.Categories {
