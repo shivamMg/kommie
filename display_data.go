@@ -90,3 +90,32 @@ func displayCategories(jd jsonData) {
 		fmt.Println()
 	}
 }
+
+func displayHelp() {
+	h := `A valid command is of the form:
+
+	kommie <category> <operation>
+
+<operation> can be one of the following:
+
+	add     Add command to <category>
+	del     Delete command from <category>
+	mod     Modify command in <category>
+	delcat  Delete <category>
+	modcat  Modify <category>
+
+If <operation> is not specified, commands inside <category> are displayed.
+If <category> is not specified, all categories are displayed and user is asked for input. The corresponding <operation> is then performed.
+If both are not specified, all categories are displayed.
+
+Besides these, there are two more commands:
+
+	kommie export
+
+to export stored json data.
+
+	kommie help
+
+to display help.`
+	fmt.Println(h)
+}

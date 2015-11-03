@@ -57,7 +57,7 @@ func readSerialNo(l int) int {
 
 // Check if arg is a predefined command
 func isKommieCom(arg string) bool {
-	if arg == argAddCom || arg == argDelCom || arg == argModCom || arg == argDelCat || arg == argModCat || arg == argExport {
+	if arg == argAddCom || arg == argDelCom || arg == argModCom || arg == argDelCat || arg == argModCat || arg == argExport || arg == argHelp {
 		return true
 	}
 	return false

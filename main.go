@@ -14,6 +14,7 @@ const (
 	argModCat = "modcat"
 
 	argExport = "export"
+	argHelp   = "help"
 )
 
 func main() {
@@ -39,9 +40,14 @@ func main() {
 			exportJSONData(jd)
 			return
 		}
+		// If args[0] is argHelp
+		if args[0] == argHelp {
+			displayHelp()
+			return
+		}
 
 		displayCategories(jd)
-		fmt.Print("Category          : ")
+		fmt.Print("Enter category    : ")
 		cat := readInput()
 		if cat == "" {
 			fmt.Println("No category specified")
