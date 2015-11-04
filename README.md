@@ -2,48 +2,57 @@
 
 #### A command-line productivity tool for <del>Linux</del> GNU/Linux :D
 
-Every day you come across *commands* that you might need to save for future references. **kommie** helps you to store and manage these *commands*, interactively from the terminal. Commands are categorized, making them easier to manage.
+Store and manage categorized commands for future references.
+
 
 ### Install
 
 **kommie** requires [Go](https://golang.org/dl/). Install it if you haven't already.
 
-Install **kommie** with:
+If you do, download and install **kommie** using:
 
 ```
 go get github.com/shivammg/kommie
 ```
 
-Make sure you have `$GOPATH/bin` included in `$PATH`. If you don't, add this to your bash configuration file (.bashrc):
+Make sure to have `$GOPATH/bin` in your `$PATH`. If you don't, add this to your bash configuration file (.bashrc):
 
 	PATH="$PATH:$GOPATH/bin"
 
+
 ### Manual
 
-	kommie <category> <operation>
+A valid command is of the form:
 
-`<operation>` can be:
+```
+kommie <category> <operation>
+```
 
-`<operation>` | Use
---- | ---
-add | Add a command
-del | Delete a command
-mod | Modify a command
-delcat | Delete a category
-modcat | Modify a category
+`<operation>` can be one of the following:
 
-If `<category>` is specified, the operation is executed on it. If it is not specified, a list of stored categories is displayed. User is asked to enter a category and then the operation is executed on it.
+	add     Add command to <category>
+	del     Delete command from <category>
+	mod     Modify command in <category>
+	delcat  Delete <category>
+	modcat  Modify <category>
 
-Try to keep one-word category names, e.g. git, vim, emacs.
+ - If `<operation>` is not specified, commands inside `<category>` are displayed.
+ - If `<category>` is not specified, all categories are displayed and user is asked for input. The corresponding `<operation>` is then performed.
+ - If both are not specified, all categories are displayed.
 
-There is no add-category command, since a category is automatically created if it is new.
-
-If both `<category>` and `<operation>` are not specified, a list of stored categories is displayed.
-
-Besides the above operations, you can export the data file using:
+Besides these, there are two more commands:
 
 	kommie export
 
+to export stored json data.
+
+	kommie help
+
+to display help.
+
+> **Tip:** Use small lowercase names for categories, ex. *vim*, *git*, *vocab*.
+
+I have included an example data file. You can copy it to your home directory and view it in the program.
 
 ### Licence
 

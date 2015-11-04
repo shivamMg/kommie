@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 func addCommand(in inputData, jd *jsonData) {
 	cats := &jd.Categories
 
@@ -16,6 +20,7 @@ func addCommand(in inputData, jd *jsonData) {
 	}
 
 	// Category does not exist
+	fmt.Printf("New category '%s' created\n", in.category)
 	category := category{
 		Name: in.category,
 		Commands: []command{
