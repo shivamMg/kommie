@@ -35,6 +35,12 @@ func main() {
 			displayCommands(n, false, jd)
 			return
 		}
+		// If args[0] is not a command
+		if !isKommieCom(args[0]) {
+			fmt.Printf("'%s' neither a command nor a predefined category\n", args[0])
+			fmt.Println("Type 'kommie help' for manual")
+			return
+		}
 		// If args[0] is argExport
 		if args[0] == argExport {
 			exportJSONData(jd)

@@ -105,7 +105,8 @@ func displayHelp() {
 	modcat  Modify <category>
 
 If <operation> is not specified, commands inside <category> are displayed.
-If <category> is not specified, all categories are displayed and user is asked for input. The corresponding <operation> is then performed.
+If <category> is not specified, all categories are displayed and user is asked for input.
+The corresponding <operation> is then performed.
 If both are not specified, all categories are displayed.
 
 Besides these, there are two more commands:
