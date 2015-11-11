@@ -56,5 +56,5 @@ I have included an example data file. You can copy it to your home directory and
 
 ### Licence
 
-GNU General Public License v3.0
+[GNU General Public License v3.0](https://github.com/shivamMg/kommie/blob/master/LICENSE)
 
